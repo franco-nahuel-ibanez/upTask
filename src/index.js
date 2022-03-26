@@ -1,6 +1,13 @@
 const express = require('express');
 const router = require('./routes');
 const path = require('path');
+const db = require('./config/db');
+
+require('./models/Proyectos');
+
+db.sync()
+    .then( () => console.log('base de datos conectada'))
+    .catch(err => console.log('error en base de datos', err))
 
 const app = express();
 

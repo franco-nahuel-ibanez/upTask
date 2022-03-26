@@ -4,7 +4,6 @@ const sequelize = new Sequelize('uptask', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql',
 
-    operatorsAliases: false,
     define: {
         timestamps: false
     },
