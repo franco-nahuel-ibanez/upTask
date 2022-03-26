@@ -24,7 +24,7 @@ html(lang="en")
                         if(proyectos.length > 0)
                             each proyecto in proyectos
                                 li 
-                                    a(href="#")= proyecto.nombre 
+                                    a(href=`/proyectos/${proyecto.url}`)= proyecto.nombre 
                 
 
 
