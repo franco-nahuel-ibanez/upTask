@@ -4,6 +4,7 @@ const path = require('path');
 const db = require('./config/db');
 
 require('./models/Proyectos');
+require('./models/Tareas');
 
 db.sync()
     .then( () => console.log('base de datos conectada'))
