@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
+const Proyectos = require('./Proyectos')
 
 const Tareas = db.define('tareas', {
     id:{
@@ -8,8 +9,11 @@ const Tareas = db.define('tareas', {
         autoIncrement: true
     },
     tarea: Sequelize.STRING(100),
-    estado: Sequelize.INTEGER
-})
+    estado: Sequelize.INTEGER(1)
+});
+
+//Una tarea pertenece a un unico proyecto
+Tareas.belongsTo(Proyectos);
 
 
 module.exports = Tareas;
