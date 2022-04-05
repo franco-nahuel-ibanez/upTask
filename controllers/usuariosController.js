@@ -10,13 +10,20 @@ exports.formCrearCuenta = (req, res) => {
 exports.crearCuenta = async(req, res) => {
     const {email, password} = req.body;
 
-    Usuarios.create({
-        email,
-        password
-    })
-    .then(() => {
+    try {
+        await Usuarios.create({
+            email,
+            password
+        })
         res.redirect('/iniciar-sesion')
-    })
+        
+    } catch (error) {
+        res.render('crearCuenta', {
+            nombrePagina: 'Crear Cuenta en Uptask',
+            error: error.errors
+        })        
+    }
+
     
     
 }

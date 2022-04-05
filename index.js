@@ -2,6 +2,7 @@ const express = require('express');
 const router = require('./routes');
 const path = require('path');
 const db = require('./config/db');
+const flash = require('connect-flash');
 
 require('./models/Proyectos');
 require('./models/Tareas');
@@ -15,15 +16,16 @@ const app = express();
 
 app.set('port', process.env.PORT || 3000);
 
-app.use(express.urlencoded({extended: false}))
-app.use(express.json());
-
-
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, './views'));
 
 app.use(express.static(__dirname + '/public'));
 
+app.use(express.urlencoded({extended: false}))
+app.use(express.json());
+
+//app messages
+app.use(flash());
 
 
 app.use('/', router());
