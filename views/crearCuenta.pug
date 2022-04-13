@@ -4,7 +4,15 @@ html(lang="en")
         include partials/header
     body.login
         .contenedor-formulario 
-            h1 Crea tu cuenta en UpTask 
+            h1 Crea tu cuenta en UpTask
+
+            if locals.mensajes
+                .alerta 
+                    each categoria in Object.keys(locals.mensajes) 
+                        each error in mensajes[categoria]
+                            .alerta(class=`${categoria}`)
+                                p= error
+
 
             form#formulario.caja.caja-login(action="/crear-cuenta" method="POST")
                 .campo 

@@ -3,6 +3,9 @@ const router = require('./routes');
 const path = require('path');
 const db = require('./config/db');
 const flash = require('connect-flash');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const passport = require('./config/passport');
 
 require('./models/Proyectos');
 require('./models/Tareas');
@@ -13,19 +16,36 @@ db.sync()
     .catch(err => console.log('error en base de datos', err))
 
 const app = express();
+app.use(express.static(__dirname + '/public'));
 
 app.set('port', process.env.PORT || 3000);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, './views'));
 
-app.use(express.static(__dirname + '/public'));
 
 app.use(express.urlencoded({extended: false}))
 app.use(express.json());
 
 //app messages
 app.use(flash());
+
+app.use(cookieParser());
+
+app.use(session({
+    secret: 'supersecreto',
+    resave: false,
+    saveUninitialized: false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use( (req, res, next) => {
+    res.locals.mensajes = req.flash();
+
+    next()
+})
 
 
 app.use('/', router());

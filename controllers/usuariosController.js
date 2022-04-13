@@ -7,6 +7,12 @@ exports.formCrearCuenta = (req, res) => {
     })
 }
 
+exports.formIniciarSesion = (req, res) => {
+    res.render('iniciarSesion', {
+        nombrePagina: 'Iniciar sesion en Uptask'
+    })
+}
+
 exports.crearCuenta = async(req, res) => {
     const {email, password} = req.body;
 
@@ -18,9 +24,13 @@ exports.crearCuenta = async(req, res) => {
         res.redirect('/iniciar-sesion')
         
     } catch (error) {
+        req.flash('error', error.errors.map(error => error.message))
+
         res.render('crearCuenta', {
             nombrePagina: 'Crear Cuenta en Uptask',
-            error: error.errors
+            mensajes: req.flash(),
+            email,
+            password
         })        
     }
 
