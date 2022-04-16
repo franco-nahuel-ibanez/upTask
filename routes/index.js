@@ -79,6 +79,10 @@ module.exports = () => {
     router.post('/iniciar-sesion', authController.autenticarUsuario);
     
     router.get('/cerrar-sesion', authController.cerrarSesion)
+
+    //reestablecer password
+    router.get('/reestablecer', usuariosController.formReestablecerPass)
+    router.post('/reestablecer', authController.enviarToken)
     
     return router;
 }
